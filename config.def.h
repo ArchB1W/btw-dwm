@@ -20,16 +20,16 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "", "", "", "", "5", "6", "7", "8", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class      	       instance    title       	             tags mask     isfloating   monitor */
+	{ "Firefox",  	       NULL,       NULL,                     2 << 0,       0,           -1 },
+	{ "waterfox-current",  NULL,       "waterfox-current",       2 << 0,       0,           -1 },
 };
 
 /* layout(s) */
@@ -46,9 +46,9 @@ static const Layout layouts[] = {
 
 /* Volume */
 #include <X11/XF86keysym.h>
-static const char *upvol[]     = { "pulsemixer", "--change-volume", "+5",     NULL };
-static const char *downvol[]   = { "pulsemixer", "--change-volume", "-5",     NULL };
-static const char *mutevol[]   = { "pulsemixer", "--toggle-mute",             NULL };
+static const char *upvol[]     = { "/bin/sh", "-c", "$(pulsemixer --change-volume +5 ; refbar)", NULL };
+static const char *downvol[]   = { "/bin/sh", "-c", "$(pulsemixer --change-volume -5 ; refbar)", NULL };
+static const char *mutevol[]   = { "/bin/sh", "-c", "$(pulsemixer --toggle-mute ; refbar)",      NULL };
 
 /* key definitions */
 #define ALTKEY Mod1Mask
@@ -66,6 +66,7 @@ static const char *mutevol[]   = { "pulsemixer", "--toggle-mute",             NU
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+/* custom */
 static const char *browsecmd[]  = { "/bin/sh", "-c", "${BROWSER:?st}", NULL };
 static const char *picom[]  = { "/bin/sh", "-c", "$(~/.config/picom/toggle_picom.sh)", NULL };
 /* rofi */
@@ -136,3 +137,10 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
 
+/* signal definitions */
+/* signum must be greater than 0 */
+/* trigger signals using `xsetroot -name "fsignal:<signum>"` */
+static Signal signals[] = {
+	/* signum       function        argument  */
+	{ 1,            quit,           {0} },
+};
