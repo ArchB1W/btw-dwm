@@ -20,7 +20,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "5", "6", "7", "8", "" };
+static const char *tags[] = { "", "", "", "", "5", "6", "7", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -46,9 +46,9 @@ static const Layout layouts[] = {
 
 /* Volume */
 #include <X11/XF86keysym.h>
-static const char *upvol[]     = { "/bin/sh", "-c", "$(pulsemixer --change-volume +5 ; refbar)", NULL };
-static const char *downvol[]   = { "/bin/sh", "-c", "$(pulsemixer --change-volume -5 ; refbar)", NULL };
-static const char *mutevol[]   = { "/bin/sh", "-c", "$(pulsemixer --toggle-mute ; refbar)",      NULL };
+static const char *upvol[]     = { "/bin/sh", "-c", "$(pamixer -i 5 ; refbar)", NULL };
+static const char *downvol[]   = { "/bin/sh", "-c", "$(pamixer -d 5 ; refbar)", NULL };
+static const char *mutevol[]   = { "/bin/sh", "-c", "$(pamixer -t   ; refbar)", NULL };
 
 /* key definitions */
 #define ALTKEY Mod1Mask
