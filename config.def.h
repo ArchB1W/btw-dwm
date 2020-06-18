@@ -20,7 +20,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "5", "6", "7", "", "" };
+static const char *tags[] = { "", "", "", "4", "5", "6", "7", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -29,7 +29,6 @@ static const Rule rules[] = {
 	 */
 	/* class      	       instance    title       	             tags mask     isfloating   monitor */
 	{ "Firefox",  	       NULL,       NULL,                     2 << 0,       0,           -1 },
-	{ "waterfox-current",  NULL,       "waterfox-current",       2 << 0,       0,           -1 },
 };
 
 /* layout(s) */
@@ -81,6 +80,7 @@ static Key keys[] = {
 	{ 0,              XF86XK_AudioRaiseVolume, spawn,          {.v = upvol   } },
 	{ ALTKEY|ShiftMask,             XK_F12,    spawn,          {.v = picom } },
         { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = power } },
+        { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
         { MODKEY,                       XK_b,      spawn,          {.v = browsecmd } },
 	{ MODKEY,                       XK_space,  spawn,          {.v = roficmd } },
 	{ MODKEY,                       XK_t,      spawn,          {.v = termcmd } },
